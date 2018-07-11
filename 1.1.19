@@ -1,0 +1,19 @@
+public class test {
+	public static long[] F(int N) {
+		long[] f = new long[N+1];
+		f[1] = 1;
+		if(N==0) return f;
+		if(N==1) return f;
+		for(int i=2;i<N+1;i++) {
+			f[i] = f[i-1]+f[i-2];
+		}
+		return f;
+	}
+
+	public static void main(String[] args) {
+		long[] a = F(100);
+		for (int N = 0; N < a.length; N++) {
+			System.out.println(N + " " + a[N]);
+		}
+	}
+}
