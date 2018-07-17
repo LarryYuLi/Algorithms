@@ -1,0 +1,34 @@
+import edu.princeton.cs.algs4.StdIn;
+
+public class EvaluatePostfix {
+	public static void main(String[] args) {
+		String inputs = StdIn.readString();
+		evaluatePostfix(inputs);
+	}
+	
+	public static void evaluatePostfix(String inputs) {
+		Stack<Double> stack = new Stack<Double>();
+		String [] s = inputs.split("");
+		double result = 0;
+		for(int i=0;i<s.length;i++) {
+			if(s[i].equals("+")) {
+				result = stack.pop() + stack.pop();
+				stack.push(result);
+			}
+			else if(s[i].equals("-")) {
+				result = stack.pop() - stack.pop();
+				stack.push(result);
+			}
+			else if(s[i].equals("*")) {
+				result = stack.pop() * stack.pop();
+				stack.push(result);
+			}
+			else if(s[i].equals("/")) {
+				result = stack.pop() / stack.pop();
+				stack.push(result);
+			}
+			else stack.push(Double.parseDouble(s[i]));
+		}
+		System.out.println(result);
+	}
+}
