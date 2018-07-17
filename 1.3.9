@@ -1,0 +1,36 @@
+import edu.princeton.cs.algs4.StdIn;
+
+public class test {
+
+	public static void main(String[] args) {
+		Stack<String> ops = new Stack<String>();
+		Stack<String> vals = new Stack<String>();
+		while (!StdIn.isEmpty()) {
+			String s = StdIn.readString();
+			if (s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/"))
+				ops.push(s);
+			else if (s.equals(")")) {
+				String op = ops.pop();
+				String v = vals.pop();
+				if (op.equals("+")) {
+					v = "( " + vals.pop() + " + " + v + " )";
+					vals.push(v);
+				}
+				if (op.equals("-")) {
+					v = "( " + vals.pop() + " - " + v + " )";
+					vals.push(v);
+				}
+				if (op.equals("*")) {
+					v = "( " + vals.pop() + " * " + v + " )";
+					vals.push(v);
+				}
+				if (op.equals("/")) {
+					v = "( " + vals.pop() + " / " + v + " )";
+					vals.push(v);
+				}
+			} else
+				vals.push(s);
+		}
+		System.out.println(vals.pop());
+	}
+}
