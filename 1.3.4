@@ -1,0 +1,33 @@
+public class Parentheses {
+
+	public static void main(String[] args) {
+		Stack<String> stack = new Stack<String>();
+		String string = StdIn.readString();
+		String[] inputs = string.split("");
+		boolean b = true;
+		for(String input : inputs) {
+			if(input.equals("(") || input.equals("[") || input.equals("{")) stack.push(input);
+			else if(b = !stack.isEmpty()) {
+				if(input.equals(")")) {
+					if(!stack.pop().equals("(")) {
+						b = false;
+						break;
+					}
+				}
+				else if(input.equals("]")) {
+					if(!stack.pop().equals("[")) {
+						b = false;
+						break;
+					}
+				}
+				else if(input.equals("}")) {
+					if(!stack.pop().equals("{")) {
+						b = false;
+						break;
+					}
+				}
+			}
+		}
+		System.out.println(b);
+	}
+}
