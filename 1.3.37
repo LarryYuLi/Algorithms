@@ -1,0 +1,27 @@
+import edu.princeton.cs.algs4.StdIn;
+
+public class test {
+
+	public static void main(String[] args) {
+		int N = StdIn.readInt();
+		int M = StdIn.readInt();
+		Queue<Integer> josephus = new Queue<Integer>();
+		for (int i = 0; i < N; i++) {
+			josephus.enqueue(i);
+		}
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M - 1; j++) {
+				josephus.enqueue(josephus.dequeue());
+			}
+			System.out.print(josephus.dequeue() + " ");
+		}
+		/*
+		while (!josephus.isEmpty()) {
+			for (int j = 0; j < M - 1; j++) {
+				josephus.enqueue(josephus.dequeue());
+			}
+			System.out.print(josephus.dequeue() + " ");
+		}
+		*/
+	}
+}
