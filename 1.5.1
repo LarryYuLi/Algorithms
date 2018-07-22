@@ -1,0 +1,66 @@
+public class QuickFind {
+	private int[] id;
+	private int count;
+	private int accessTimes;
+
+	public UF(int N) {
+		count = N;
+		id = new int[N];
+		for (int i = 0; i < N; i++) {
+			id[i] = i;
+		}
+	}
+
+	public int count() {
+		return count;
+	}
+
+	public boolean connected(int p, int q) {
+		return find(p) == find(q);
+	}
+
+	public int find(int p) {
+		accessTimes++;
+		return id[p];
+	}
+
+	public void union(int p, int q) {
+		accessTimes = 0;
+		System.out.println("开始联通分量: " + p + "-" + q);
+		int pID = find(p);
+		int qID = find(q);
+
+		if (pID == qID)
+			return;
+		for (int i = 0; i < id.length; i++) {
+			accessTimes++;
+			if (id[i] == pID) {
+				accessTimes++;
+				id[i] = qID;
+			}
+		}
+		count--;
+		System.out.print("id = { ");
+		for (int i = 0; i < id.length; i++) {
+			if (i == id.length - 1) {
+				System.out.print(id[i]);
+			} else {
+				System.out.print(id[i] + ", ");
+			}
+		}
+		System.out.println("}");
+		System.out.println("数组访问的次数:" + accessTimes);
+	}
+
+	public static void main(String[] args) {
+		QuickFind qf = new QuickFind(10);
+		qf.union(9, 0);
+		qf.union(3, 4);
+		qf.union(5, 8);
+		qf.union(7, 2);
+		qf.union(2, 1);
+		qf.union(5, 7);
+		qf.union(0, 3);
+		qf.union(4, 2);
+	}
+}
