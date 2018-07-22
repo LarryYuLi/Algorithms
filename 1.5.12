@@ -1,0 +1,66 @@
+public class PathCompressionUF {
+	private int[] id;
+	private int count;
+
+	public PathCompressionUF(int N) {
+		count = N;
+		id = new int[N];
+		for (int i = 0; i < N; i++) {
+			id[i] = i;
+		}
+	}
+
+	public int count() {
+		return count;
+	}
+
+	public boolean connected(int p, int q) {
+		return find(p) == find(q);
+	}
+
+	public int find(int p) {
+		int root = p;
+		while (root != id[root]) {
+			root = id[root];
+		}
+		while (root != id[p]) {
+			int temp = p;
+			p = id[p];
+			id[temp] = root;
+		}
+		return root;
+	}
+
+	public void union(int p, int q) {
+		System.out.println("开始联通分量: " + p + "-" + q);
+		int pRoot = find(p);
+		int qRoot = find(q);
+
+		if (pRoot == qRoot)
+			return;
+		id[pRoot] = qRoot;
+		count--;
+
+		System.out.print("id = { ");
+		for (int i = 0; i < id.length; i++) {
+			if (i == id.length - 1) {
+				System.out.print(id[i]);
+			} else {
+				System.out.print(id[i] + ", ");
+			}
+		}
+		System.out.println("}");
+	}
+
+	public static void main(String[] args) {
+		PathCompressionUF uf = new PathCompressionUF(10);
+		uf.union(9, 0);
+		uf.union(3, 4);
+		uf.union(5, 8);
+		uf.union(7, 2);
+		uf.union(2, 1);
+		uf.union(5, 7);
+		uf.union(0, 3);
+		uf.union(4, 2);
+	}
+}
